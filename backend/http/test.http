@@ -1,0 +1,13 @@
+###
+GET http://127.0.0.1:3000/api/read-text
+
+###
+GET http://127.0.0.1:3000/api/read-json
+
+###
+POST http://127.0.0.1:3000/api/write-text
+content-type: application/json
+
+{
+    "text": "Kedves Dandó! Hagyja aludni a Szabit pls!!4!"
+}
