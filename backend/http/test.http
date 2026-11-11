@@ -11,3 +11,20 @@ content-type: application/json
 {
     "text": "Kedves Dandó! Hagyja aludni a Szabit pls!!4!"
 }
+
+###
+POST http://127.0.0.1:3000/api/write-json
+content-type: application/json
+
+{
+    "name": "Másik Burom",
+    "age": 14
+}
+
+###
+POST http://127.0.0.1:3000/api/append-text
+content-type: application/json
+
+{
+    "text": "Egy harmadik Burom! Az eredeti Terényi!"
+}

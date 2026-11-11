@@ -74,7 +74,31 @@ const writeJsonFile = async (filePath, content) => {
     }
 };
 //*Fájl létezik-e
-//*Fájl bővítése
+const fileExists = async (filePath) => {
+    try {
+        await fs.access(filePath);
+        return true; //?Amennyiben az előző fgv hívás nem dob hibát, a fájl létezik
+    } catch (error) {
+        return false; //? Ha hiba van, akkor nem létezik.
+    }
+};
+//? fileExists fgv meghívása:
+//* const exists = await fileExists('valami.txt');
+//* if (exists) {
+//*     console.log('Fájl létezik.');
+//* } else {
+//*     console.log('Fájl nem létezik.');
+//* }
+
+//*Fájl bővítése: JSON fájl esetén nem használható az appendFile, ott először beolvassuk a teljes JSON fájlt, majd módosítjuk a JavaScript Object-et és végül kiírjuk a módosított Object-et a JSON fájlba.
+const appendTextFile = async (filePath, content) => {
+    try {
+        await fs.appendFile(filePath, content, 'utf8');
+        return 'A fájl sikeresen bővítve.';
+    } catch (error) {
+        throw new Error('Hiba: ', error);
+    }
+};
 
 //!Endpoints:
 router.get('/read-text', async (request, response) => {
@@ -131,6 +155,22 @@ router.post('/write-json', async (request, response) => {
         const utvonal = path.join(__dirname, '../files/writeJson.json');
         const message = await writeJsonFile(utvonal, data);
 
+        response.status(200).json({
+            success: true,
+            message: message
+        });
+    } catch (error) {
+        response.status(500).json({
+            success: false
+        });
+    }
+});
+
+router.post('/append-text', async (request, response) => {
+    try {
+        const text = request.body.text; //? pl.: { "text": "Subway Surf" }
+        const utvonal = path.join(__dirname, '../files/notes.txt');
+        const message = await appendTextFile(utvonal, text);
         response.status(200).json({
             success: true,
             message: message
