@@ -182,6 +182,22 @@ router.post('/append-text', async (request, response) => {
     }
 });
 
+/*
+const readNumbersFromFile = () => {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const rawItems = content.split(',');
+    const numbers = [];
+
+    for (const item of rawItems) {
+        const parsed = parseInt(item.trim(), 10);
+        if (!isNaN(parsed)) {
+            numbers.push(parsed);
+        }
+    }
+
+    return numbers;
+};
+*/
 //?GET /api/test
 router.get('/test', (request, response) => {
     response.status(200).json({
